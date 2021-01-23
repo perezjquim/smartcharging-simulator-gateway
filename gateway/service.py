@@ -11,23 +11,19 @@ from gateway.exceptions import OrderNotFound, ProductNotFound
 
 
 class GatewayService(object):
-    """
-    Service acts as a gateway to other services over http.
-    """
 
     name = 'gateway'
 
-    model1_rpc = RpcProxy('model1')
+    rpc_model_travel_distance = RpcProxy('model_travel_distance')
 
     @http(
-        "GET", "/model1",
+        "GET", 
+        "/getTravelDistance",
         expected_exceptions=ProductNotFound
     )
-    def get_model1(self, request):
-        """Gets product by `product_id`
-        """
-        product = self.model1_rpc.get_model1()
+    def get_travel_distance(self, request):
+        travel_distance = self.rpc_model_travel_distance.get_travel_distance()
         return Response(
-            product,
+            travel_distance,
             mimetype='application/json'
         )
