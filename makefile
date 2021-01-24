@@ -52,7 +52,11 @@ run-docker-gateway: build-docker-gateway start-docker-gateway
 build-docker-gateway:
 	@echo '$(PATTERN_BEGIN) BUILDING GATEWAY PACK...'
 
-	@pipreqs ./ --force
+	@pipreqs --savepath requirements.txt.tmp
+	@if cmp -s "requirements.txt.tmp" "requirements.txt"; then : ; \
+	else pipreqs ./ --force; fi
+	@rm requirements.txt.tmp
+
 	@pack build $(GATEWAY_PACK_NAME) \
 	--builder $(BUILDPACK_BUILDER)
 
