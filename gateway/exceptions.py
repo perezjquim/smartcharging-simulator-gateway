@@ -15,7 +15,7 @@ def remote_error(exc_path):
     return wrapper
 
 
-@remote_error('orders.exceptions.NotFound')
+@remote_error('model.exceptions.NotFound')
 class OrderNotFound(Exception):
     """
     If the orders service raises a ``NotFound`` error from an RPC call,
