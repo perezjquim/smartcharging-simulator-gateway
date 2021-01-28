@@ -9,7 +9,7 @@ SIMULATOR_NETWORK_NAME=net_energysim
 GATEWAY_PACK_NAME=pack_energysim_gateway
 GATEWAY_CONTAINER_NAME=cont_energysim_gateway
 GATEWAY_BACKDOOR=3000
-GATEWAY_PORTS=8003:8000
+GATEWAY_PORTS=8001:8000
 
 RABBIT_CONTAINER_NAME=cont_energysim_rabbitmq
 RABBIT_IMAGE_NAME=rabbitmq:3.7-management
@@ -52,9 +52,12 @@ run-docker-gateway: build-docker-gateway start-docker-gateway
 build-docker-gateway:
 	@echo '$(PATTERN_BEGIN) BUILDING GATEWAY PACK...'
 
-	@pipreqs --savepath requirements.txt.tmp
-	@if cmp -s "requirements.txt.tmp" "requirements.txt"; then rm requirements.txt.tmp; \
-	else mv requirements.txt.tmp requirements.txt; fi
+	@pipreqs --force --savepath requirements.txt.tmp
+	@sort -r requirements.txt.tmp > requirements.txt.tmp.sorted
+	@if cmp -s requirements.txt.tmp.sorted requirements.txt; then :;\
+	else cp -f requirements.txt.tmp.sorted requirements.txt; fi
+	@rm -f requirements.txt.tmp
+	@rm -f requirements.txt.tmp.sorted
 
 	@pack build $(GATEWAY_PACK_NAME) \
 	--builder $(BUILDPACK_BUILDER)
