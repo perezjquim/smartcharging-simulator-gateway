@@ -15,6 +15,8 @@ class GatewayService(object):
 
     rpc_model_travel_distance = RpcProxy('model_travel_distance')
     rpc_model_charging_period_duration = RpcProxy('model_charging_period_duration')
+    rpc_model_charging_period_peak = RpcProxy('model_charging_period_peak')
+    rpc_model_battery_consumption = RpcProxy('model_battery_consumption')
 
     @http(
         "GET", 
@@ -37,3 +39,26 @@ class GatewayService(object):
             charging_period_duration,
             mimetype='application/json'
         )        
+
+    @http(
+        "GET", 
+        "/getChargingPeriodPeak"
+    )
+    def get_charging_period_peak(self, request):
+        charging_period_peak = self.rpc_model_charging_period_peak.get_charging_period_peak()
+        return Response(
+            charging_period_peak,
+            mimetype='application/json'
+        )                
+
+
+    @http(
+        "GET", 
+        "/getFinalBatteryLevel/<int:initial_battery_level>/<int:travel_distance>"
+    )
+    def get_final_battery_level(self, request, initial_battery_level, travel_distance):
+        final_battery_level = self.rpc_model_battery_consumption.get_final_battery_level(initial_battery_level, travel_distance)
+        return Response(
+            final_battery_level,
+            mimetype='application/json'
+        )                        
