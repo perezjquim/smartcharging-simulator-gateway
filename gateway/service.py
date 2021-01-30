@@ -17,6 +17,7 @@ class GatewayService(object):
     rpc_model_charging_period_duration = RpcProxy('model_charging_period_duration')
     rpc_model_charging_period_peak = RpcProxy('model_charging_period_peak')
     rpc_model_battery_consumption = RpcProxy('model_battery_consumption')
+    rpc_model_affluence = RpcProxy('model_affluence')
 
     @http(
         "GET", 
@@ -62,3 +63,14 @@ class GatewayService(object):
             final_battery_level,
             mimetype='application/json'
         )                        
+
+    @http(
+        "GET", 
+        "/getAffluence/<int:hour_of_day>"
+    )
+    def get_affluence(self, request, hour_of_day):
+        affluence = self.rpc_model_affluence.get_affluence(hour_of_day)
+        return Response(
+            affluence,
+            mimetype='application/json'
+        )                 

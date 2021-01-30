@@ -106,3 +106,12 @@ start-nameko-gateway:
 	--config nameko-config.yml  \
 	--backdoor $(GATEWAY_BACKDOOR)
 # < NAMEKO SERVICE FOR GATEWAY
+
+# > TEST ENDPOINTS
+test-endpoints:
+	@curl 'http://localhost:8001/getChargingPeriodPeak'
+	@curl 'http://localhost:8001/getChargingPeriodDuration'
+	@curl 'http://localhost:8001/getFinalBatteryLevel/11/1'
+	@curl 'http://localhost:8001/getTravelDistance'	
+	@curl 'http://localhost:8001/getAffluence/12'			
+# < TEST ENDPOINTS
