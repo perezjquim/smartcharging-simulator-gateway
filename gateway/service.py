@@ -55,7 +55,7 @@ class GatewayService(object):
 
     @http(
         "GET", 
-        "/getFinalBatteryLevel/<int:initial_battery_level>/<int:travel_distance>"
+        "/getFinalBatteryLevel/<int:initial_battery_level>/<string:travel_distance>"
     )
     def get_final_battery_level(self, request, initial_battery_level, travel_distance):
         final_battery_level = self.rpc_model_battery_consumption.get_final_battery_level(initial_battery_level, travel_distance)
