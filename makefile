@@ -41,8 +41,7 @@ start-docker-rabbit:
 stop-docker-rabbit:
 	@echo '$(PATTERN_BEGIN) STOPPING RABBIT...'
 
-	@( docker stop $(RABBIT_CONTAINER_NAME) && docker rm $(RABBIT_CONTAINER_NAME) ) || true
-	@( docker network remove $(SIMULATOR_NETWORK_NAME) || true )
+	@( docker rm -f $(RABBIT_CONTAINER_NAME) ) || true
 
 	@echo '$(PATTERN_END) RABBIT STOPPED!'	
 # < RABBIT
@@ -87,7 +86,7 @@ start-docker-gateway:
 stop-docker-gateway:
 	@echo '$(PATTERN_BEGIN) STOPPING GATEWAY PACK...'
 
-	@( docker stop $(GATEWAY_CONTAINER_NAME) && docker rm $(GATEWAY_CONTAINER_NAME) ) || true
+	@( docker rm -f $(GATEWAY_CONTAINER_NAME) ) || true
 
 	@echo '$(PATTERN_END) GATEWAY PACK STOPPED!'	
 # < GATEWAY
