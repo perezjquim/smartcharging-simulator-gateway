@@ -61,7 +61,6 @@ build-docker-gateway:
 
 	@pack build $(GATEWAY_PACK_NAME) \
 	--builder $(BUILDPACK_BUILDER) \
-	--env PIP_DEFAULT_TIMEOUT=$(BUILDPACK_PIP_DEFAULT_TIMEOUT) \
 	--pull-policy if-not-present \
 	--verbose
 
