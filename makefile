@@ -107,9 +107,9 @@ start-nameko-gateway:
 
 # > TEST ENDPOINTS
 test-endpoints:
-	@curl 'http://localhost:8001/getChargingPeriodPeak'
-	@curl 'http://localhost:8001/getChargingPeriodDuration'
-	@curl 'http://localhost:8001/getFinalBatteryLevel/11/1'
-	@curl 'http://localhost:8001/getTravelDistance'	
-	@curl 'http://localhost:8001/getAffluence/12'			
+	@curl 'http://localhost:8001/charging_period/energy_spent/0.5'
+	@curl 'http://localhost:8001/charging_period/duration'
+	@curl 'http://localhost:8001/travel/final_battery_level/11/1'
+	@curl 'http://localhost:8001/travel/distance'	
+	@curl 'http://localhost:8001/travel/affluence/12'			
 # < TEST ENDPOINTS
