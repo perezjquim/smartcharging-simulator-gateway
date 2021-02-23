@@ -17,6 +17,7 @@ class GatewayService(object):
     rpc_model_charging_period_energy_spent = RpcProxy( 'model_energysim_charging_period_energy_spent' )
     rpc_model_travel_final_battery_level = RpcProxy( 'model_energysim_travel_final_battery_level' )
     rpc_model_travel_affluence = RpcProxy( 'model_energysim_travel_affluence' )
+    rpc_model_travel_duration = RpcProxy( 'model_energysim_travel_duration' )    
 
     @http(
         "GET", 
@@ -56,7 +57,7 @@ class GatewayService(object):
         "GET", 
         "/travel/final_battery_level/<string:initial_battery_level>/<string:travel_distance>"
     )
-    def get_final_battery_level( self, request, initial_battery_level, travel_distance ):
+    def get_travel_final_battery_level( self, request, initial_battery_level, travel_distance ):
         final_battery_level = self.rpc_model_travel_final_battery_level.get_final_battery_level( initial_battery_level, travel_distance )
         return Response(
             final_battery_level,
@@ -67,9 +68,20 @@ class GatewayService(object):
         "GET", 
         "/travel/affluence/<string:hour_of_day>"
     )
-    def get_affluence( self, request, hour_of_day ):
+    def get_travel_affluence( self, request, hour_of_day ):
         affluence = self.rpc_model_travel_affluence.get_affluence( hour_of_day )
         return Response(
             affluence,
             mimetype='application/json'
-        )                 
+        )               
+
+    @http(
+        "GET", 
+        "/travel/duration"
+    )
+    def get_travel_duration( self, request ):
+        duration = self.rpc_model_travel_duration.get_duration( )
+        return Response(
+            duration,
+            mimetype='application/json'
+        )        
