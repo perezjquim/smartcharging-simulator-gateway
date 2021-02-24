@@ -3,7 +3,6 @@ PATTERN_BEGIN=»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»»
 PATTERN_END=«««««««««««««««««««««««««««««««««««««««««««««
 
 BUILDPACK_BUILDER=heroku/buildpacks:18
-BUILDPACK_PIP_DEFAULT_TIMEOUT=2000
 
 SIMULATOR_NETWORK_NAME=net_energysim
 
