@@ -20,7 +20,27 @@ RABBIT_MANAGEMENT_PORT=15672
 RABBIT_MANAGEMENT_PORTS=15673:15672
 # < CONSTANTS
 
-main: stop-docker-gateway stop-docker-rabbit start-docker-rabbit run-docker-gateway
+main: check-dependencies stop-docker-gateway stop-docker-rabbit start-docker-rabbit run-docker-gateway
+
+check-dependencies:
+	@echo '$(PATTERN_BEGIN) CHECKING DEPENDENCIES...'
+
+	@if ( pip3 list | grep -F pipreqs > /dev/null 2>&1 ) ; then \
+		echo "pipreqs already installed!" ; \
+	else \
+		echo "pipreqs not installed! installing..." && pip3 install pipreqs; \
+	fi	
+
+	@if ( dpkg -l pack-cli > /dev/null 2>&1 ) ; then \
+		echo "pack already installed!" ; \
+	else \
+		echo "pack not installed! please install..."; \
+		exit 1; \
+	fi			
+
+	@bash -c 'source ~/.profile'		
+
+	@echo '$(PATTERN_END) DEPENDENCIES CHECKED!'	
 
 # > RABBIT
 start-docker-rabbit:
