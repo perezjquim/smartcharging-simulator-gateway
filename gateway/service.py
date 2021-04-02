@@ -1,7 +1,6 @@
 import json
 
 from marshmallow import ValidationError
-from nameko import config
 from nameko.exceptions import BadRequest
 from nameko.rpc import RpcProxy
 from werkzeug import Response
